@@ -17,4 +17,6 @@ app.UseHttpsRedirection();
 foreach (var api in app.Services.GetRequiredService<IEnumerable<ISetupWebApi>>())
     await api.SetupAsync(app);
 
-app.Run();
+app.UseStaticFiles();
+app.UseDefaultFiles("/index.html");
+await app.RunAsync();
