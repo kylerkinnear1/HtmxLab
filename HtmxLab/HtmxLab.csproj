@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <None Remove="Views\main.liquid" />
-    <EmbeddedResource Include="Templates\Main.liquid" />
+    <EmbeddedResource Include="Templates\main.liquid" />
   </ItemGroup>
 
 </Project>
