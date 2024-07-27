@@ -16,11 +16,13 @@ public static class Renderer
             : error;
     }
 
-    public static async ValueTask<string> RenderAsync<T>(string templateName, T model, TemplateOptions? options = null)
+    public static async ValueTask<string> RenderAsync<T>(string templateName, T model, Action<TemplateOptions>? options = null)
     {
+        var optionInput = options != null ? new TemplateOptions() : null;
+        options?.Invoke(optionInput!);
         var templateText = await templateName.LoadStringFileAsync(Assembly.GetExecutingAssembly());
         var rendered = Parser.TryParse(templateText, out var template, out var error)
-            ? await template.RenderAsync(options != null ? new(model, options) : new(model))
+            ? await template.RenderAsync(optionInput != null ? new(model, optionInput) : new(model))
             : error;
 
         return rendered;
