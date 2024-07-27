@@ -1,1 +1,7 @@
-<h1>You did it!</h1>
+<ul id="parent">
+    {% for child in Children %}
+        <li>
+            <h2>Hello {{child.FirstName}} {{child.LastName}}</h2>
+        </li>
+    {% endfor %}
+</ul>

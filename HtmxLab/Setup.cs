@@ -7,8 +7,6 @@ public static class Setup
 {
     public static void AddSetup(this IServiceCollection services)
     {
-        services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
-        services.RegisterAll<ISetupWebApi>(typeof(Setup));
+        
     }
 }
