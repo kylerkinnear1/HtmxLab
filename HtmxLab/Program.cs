@@ -23,6 +23,7 @@ app.MapGet("update-content", async () => await Renderer.RenderAsync(
     "Templates.main.liquid", 
     new Parent([new("Billy", "Bob"), new("Sally", "Bob")]), 
     opt => opt.MemberAccessStrategy.Register<Child>()));
+app.MapGet("luke", async () => await Renderer.RenderAsync("Templates.pilot.liquid"));
 
 await app.RunAsync();
 

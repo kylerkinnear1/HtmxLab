@@ -11,9 +11,11 @@ public static class Renderer
     public static async ValueTask<string> RenderAsync(string templateName)
     {
         var templateText = await templateName.LoadStringFileAsync(Assembly.GetExecutingAssembly());
-        return Parser.TryParse(templateText, out var template, out var error)
+        var rendered = Parser.TryParse(templateText, out var template, out var error)
             ? await template.RenderAsync()
             : error;
+
+        return rendered;
     }
 
     public static async ValueTask<string> RenderAsync<T>(string templateName, T model, Action<TemplateOptions>? options = null)

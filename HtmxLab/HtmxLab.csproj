@@ -6,11 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="index.html" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Fluid.Core" Version="2.11.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.1" />
@@ -24,16 +20,25 @@
 
   <ItemGroup>
     <Content Update="wwwroot\index.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\output.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\pilots\rebels\xwing\lukeskywalker.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Views\main.liquid" />
     <EmbeddedResource Include="Templates\main.liquid" />
+    <None Remove="Templates\start-game.liquid" />
+    <EmbeddedResource Include="Templates\start-game.liquid" />
+    <None Remove="Templates\pilot.liquid" />
+    <EmbeddedResource Include="Templates\pilot.liquid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
-
+  
 </Project>
