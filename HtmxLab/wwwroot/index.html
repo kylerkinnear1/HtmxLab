@@ -8,11 +8,6 @@
     <link href="./output.css" rel="stylesheet">
 </head>
 <body>
-<h1>htmx Example</h1>
-<button hx-get="/update-content" hx-target="#content" hx-swap="innerHTML">Update Content</button>
-<div id="content">
-    <p>Initial content goes here...</p>
-</div>
-<button hx-get="/luke" hx-target="#content" hx-swap="innerHTML">Get Luke</button>
+<div id="main" hx-get="/home" hx-trigger="load"></div>
 </body>
 </html>

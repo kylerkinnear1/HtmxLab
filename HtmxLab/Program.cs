@@ -1,10 +1,16 @@
 using Fluid;
 using HtmxLab;
 using HtmxLab.Lib.Apis;
+using HtmxLab.Lib.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.RegisterAll<ISetupWebApi>(typeof(ThisAssembly));
+
+var templateConfig = HandlebarsSetup.LoadTemplates(builder.Environment.WebRootPath);
+builder.Services.AddSingleton(templateConfig);
+builder.Services.AddSingleton<IRenderer, HandlebarsRenderer>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -14,18 +20,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-foreach (var api in app.Services.GetRequiredService<IEnumerable<ISetupWebApi>>())
-    await api.SetupAsync(app);
-
 app.UseStaticFiles();
 app.UseDefaultFiles("/index.html");
-app.MapGet("update-content", async () => await Renderer.RenderAsync(
-    "Templates.main.liquid", 
-    new Parent([new("Billy", "Bob"), new("Sally", "Bob")]), 
-    opt => opt.MemberAccessStrategy.Register<Child>()));
-app.MapGet("luke", async () => await Renderer.RenderAsync("Templates.pilot.liquid"));
-
+await app.RegisterWebApisAsync();
 await app.RunAsync();
-
-public record Parent(List<Child> Children);
-public record Child(string FirstName, string LastName);

@@ -1,0 +1,5 @@
+﻿<ul>
+    {% for pilot in AllPilots %}
+        {% render './pilot.liquid' with pilot as pilot %}
+    {% endfor %}
+</ul>
